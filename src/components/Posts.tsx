@@ -7,6 +7,9 @@ import pic4 from '../Image/pic4.jpg';
 import pic5 from '../Image/pic5.jpg';
 import pic6 from '../Image/pic6.jpg';
 
+
+
+
 export default class Sample extends React.Component {
     render() {
 	return (
@@ -36,13 +39,13 @@ const PHOTO_SET = [
     height: 3
   },
   {
-    src: pic6,
+    src: pic4,
     width: 4,
     height: 3
   },
   {
-    src: pic4,
+    src: pic6,
     width: 4,
     height: 3
-  }
+  },
 ];
