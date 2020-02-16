@@ -9,6 +9,7 @@ from gtts import gTTS
 from pygame import mixer
 from addPost import *
 import keyboard
+import time
 
 # Imports the Google Cloud client library
 from google.cloud import vision
@@ -32,7 +33,7 @@ def yolo(args):
             os.remove(toweb + '/' + remove)
     if Gadded == []:
         return 0
-    time.sleep(0.5)
+    time.sleep(0.75)
     updatedetection()
 
     # Load Yolo
@@ -122,12 +123,15 @@ def yolo(args):
                 else:
                     audio = audio + ' ' + list(objects)[i] + "s,"
 
-        mp3 = gTTS(text=audio, lang='en', slow=False) 
+        mp3 = gTTS(text=audio, lang='en', slow=False)
+        tic = time.perf_counter()
         mp3.save("result.mp3")
+        toc = time.perf_counter()
 
-        mixer.init()
-        mixer.music.load("result.mp3")
-        mixer.music.play()
+        print(toc-tic)
+        # mixer.init()
+        # mixer.music.load("result.mp3")
+        # mixer.music.play()
 
     return 0
         # with open(args.output+"/result.txt", 'a') as save:
@@ -173,12 +177,30 @@ def detect_landmarks(path):
 
     landmarkName = landmarks[0].description
     wikistring = wikipedia.summary(landmarkName, sentences=2)
-    mp3 = gTTS(text=wikistring, lang='en', slow=False)
-    mp3.save("result.mp3")
+    afterfilter = ""
+    numBrackets = 0
+    for i in range(0, len(wikistring), 1):
+        if wikistring[i] in ["(", "["]:
+            numBrackets += 1
 
-    mixer.init()
-    mixer.music.load("result.mp3")
-    mixer.music.play()
+        if numBrackets == 0:
+            afterfilter = afterfilter + wikistring[i]
+
+        if wikistring[i] in [")", "]"]:
+            numBrackets -= 1
+
+    afterfilter = afterfilter.replace(",", "")
+    mp3 = gTTS(text=afterfilter, lang='en', slow=False)
+
+    tic = time.perf_counter()
+    mp3.save("result.mp3")
+    toc = time.perf_counter()
+
+    print(toc-tic)
+
+    # mixer.init()
+    # mixer.music.load("result.mp3")
+    # mixer.music.play()
     return True
 
 while 1:

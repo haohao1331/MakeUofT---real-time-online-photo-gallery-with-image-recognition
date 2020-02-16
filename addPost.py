@@ -8,7 +8,7 @@ def updatePosts(filename, picname, updated):
     if compname in updated:
         return False
     updated.append(compname)
-    print(updated)
+    # print(updated)
     # Finding where to add import statement
     for i in range(0,len(content),1):
         if content[i][0]=="\n":
