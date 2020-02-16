@@ -10,7 +10,7 @@ import pic1 from '../Image/pic1.jpg';
 export default class Sample extends React.Component {
     render() {
 	return (
-	    <Gallery photos={PHOTO_SET} />
+			<Gallery photos={PHOTO_SET} />
 	);
     }
 }
