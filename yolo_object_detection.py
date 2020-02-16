@@ -1,4 +1,7 @@
 import cv2
+import io
+import wikipedia
+import sys
 import numpy as np
 import argparse
 import os, time
@@ -7,6 +10,11 @@ from pygame import mixer
 from addPost import *
 import keyboard
 
+# Imports the Google Cloud client library
+from google.cloud import vision
+from google.cloud.vision import types
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] ="key.json"
 filepath = "./src/components/Posts.tsx"
 alreadyadded = []
 Gadded = []
@@ -94,6 +102,11 @@ def yolo(args):
 
         cv2.imwrite(args.output+'/'+images, img)
 
+        # read out speech
+
+        if detect_landmarks(toweb + "/" + images):
+            return True
+
         audio = "There "
         if (len(output) == 0):
             audio += "is nothing"
@@ -137,6 +150,36 @@ def updatedetection():
     outputs = dict([(f, None) for f in os.listdir(args.output)])
     Gadded = [f for f in inputs if not f in outputs]
     Gremoved = [f for f in outputs if not f in inputs]
+
+
+def detect_landmarks(path):
+    """Detects landmarks in the file."""
+
+    client = vision.ImageAnnotatorClient()
+
+    with io.open(path, 'rb') as image_file:
+        content = image_file.read()
+
+    image = vision.types.Image(content=content)
+
+    response = client.landmark_detection(image=image)
+    landmarks = response.landmark_annotations
+
+    try:
+        print(landmarks[0].description)
+    except:
+        print("not a landmark")
+        return False
+
+    landmarkName = landmarks[0].description
+    wikistring = wikipedia.summary(landmarkName, sentences=2)
+    mp3 = gTTS(text=wikistring, lang='en', slow=False)
+    mp3.save("result.mp3")
+
+    mixer.init()
+    mixer.music.load("result.mp3")
+    mixer.music.play()
+    return True
 
 while 1:
     time.sleep (1)
