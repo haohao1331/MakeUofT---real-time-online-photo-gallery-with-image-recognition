@@ -18,7 +18,7 @@ code {
 }
 .react-photo-gallery--gallery img {
   border-radius: 12px;
-  padding: 10px;
+  /* padding: 10px; */
   opacity: 90%;
   box-shadow: 5px 5px 20px 2.5px;
 }
