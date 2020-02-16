@@ -11,3 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.react-photo-gallery--gallery {
+  max-width: 100%;
+  background-color: #E3E3E3;
+  padding-top: 100px;
+}
+.react-photo-gallery--gallery img {
+  border-radius: 12px;
+  padding: : 10px;
+  opacity: 90%;
+  box-shadow: 5px 5px 20px 2.5px;
+}
+.react-photo-gallery--gallery img:hover {
+  opacity: 100%;
+  box-shadow: 5px 5px 40px 2.5px;
+  transform: scale(1.1);
+  z-index: 1;
+}
