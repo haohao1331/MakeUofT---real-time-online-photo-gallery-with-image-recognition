@@ -1,4 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is a real-time photo gallery running on local host with image recognition from google-cloud landmark detection along with object detection running locally. 
+Run `yarn start` starts local host on [http://localhost:3000](http://localhost:3000).
+Run `sudo python3 yolo_object_detection.py input output` runs the main programe, "input" folder in the main directory is the image input (jpg format only, for stability), "output" folder will return the object labeled image (jpg format). 
+"./src/Image" is the folder with all the images to the photo gallery, leave at least one image here for the website to work. Holding 'r' while the main programe is running will reset the photo gallery to its base state (leaving only one image, but does not deletes the images in "./src/Image" folder). 
 
 ## Available Scripts
 
@@ -41,4 +44,11 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To learn React, check out the [React documentation](https://reactjs.org/). 
+
+## About Image Recognition
+
+In the main directory, run: `sudo python3 yolo_object_detection.py input output` will start image recognition and auto-upload to real-time photo gallery. The "input" folder is where the programe detects input, any image (jpg) being draged or entered into this directory will be detected by object recognition, and the output will be written at "output" folder and also "./src/Image" folder. 
+
+While the main python programe is running, holding down 'r' on keyboard until a reset message has poped up will reset the state of the photo gallery. Then, deleting all the photoes in the "input" folder will leave the directory back to its beginning state. 
+
